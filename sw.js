@@ -1,12 +1,12 @@
 /* হিসাবনিকাশ — অফলাইন সার্ভিস ওয়ার্কার */
-const VERSION = 'hn-v3';
+const VERSION = 'hn-v5';
 const CORE = [
   '/',
   '/manifest.webmanifest',
-  '/vendor/xlsx.full.min.js',
-  '/icon/icon-1254.png',
-  '/icon/icon-500.png',
   '/favicon.png',
+  '/icon/icon-192.png',
+  '/icon/icon-512.png',
+  '/icon/apple-touch-icon.png',
 ];
 const RUNTIME = VERSION + '-runtime';
 
@@ -73,9 +73,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Google Fonts + other cross-origin assets: serve from cache when offline
+  // Cross-origin: Google Fonts + export libraries (xlsx / jspdf / html2canvas)
   if (url.origin !== self.location.origin) {
-    if (/fonts\.(googleapis|gstatic)\.com/.test(url.hostname)) {
+    if (/fonts\.(googleapis|gstatic)\.com$/.test(url.hostname) || /(^|\.)jsdelivr\.net$/.test(url.hostname)) {
       event.respondWith(staleWhileRevalidate(req, RUNTIME));
     }
     return;

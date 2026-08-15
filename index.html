@@ -5,15 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#0f1117">
 <title>হিসাব'নিকাশ</title>
-<meta name="description" content="আয়, ব্যয়, দেনা ও পাওনার সহজ হিসাব ">
+<meta name="description" content="হিসাবনিকাশ — আয়, ব্যয়, নগদ বিক্রি ও বাকি বিক্রির সহজ হিসাব। ইনস্টল করে অফলাইনেও ব্যবহার করুন।">
 
-<link rel="canonical" href="https://bazarer-khata.vercel.app/">
-<link rel="icon" href="/favicon.ico">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icon/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
+
+<meta property="og:title" content="হিসাব'নিকাশ">
+<meta property="og:description" content="হিসাবনিকাশ — আয়, ব্যয়, নগদ বিক্রি ও বাকি বিক্রির সহজ হিসাব">
+<meta property="og:image" content="https://hisabnikash.vercel.app/icon/preview.png">
+
 
 
 <meta property="og:title" content="হিসাব'নিকাশ">
-<meta property="og:description" content=" আয়, ব্যয়, দেনা ও পাওনার সহজ হিসাব ।">
-<meta property="og:image" content="https://bazarer-khata.vercel.app/">
+<meta property="og:description" content="হিসাবনিকাশ — আয়, ব্যয়, নগদ বিক্রি ও বাকি বিক্রির সহজ হিসাব">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 
   
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -628,6 +636,8 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
   .cust-card-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
   .cust-call-mini{width:32px;height:32px;border-radius:50%;background:rgba(0,229,160,.12);border:1px solid rgba(0,229,160,.3);display:flex;align-items:center;justify-content:center;color:var(--income);text-decoration:none;flex-shrink:0;transition:all .2s}
   .cust-call-mini:hover{background:rgba(0,229,160,.25)}
+  .cust-edit-mini{width:32px;height:32px;border-radius:50%;background:var(--surface2,rgba(255,255,255,.06));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text2);text-decoration:none;flex-shrink:0;transition:all .2s;cursor:pointer}
+  .cust-edit-mini:hover{background:rgba(255,255,255,.12);color:var(--text)}
 
   /* ===== PDF Viewer ===== */
   .pdfv{position:fixed;inset:0;z-index:9999;background:#0b0d12;display:flex;flex-direction:column}
@@ -885,22 +895,22 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
     <div class="prog-card">
       <div class="prog-card-header"><div class="prog-card-title"><svg class="icon icon-sm" style="color:var(--income)"><use href="#i-trending-up"/></svg> আয়</div><div class="prog-card-amount" id="pp-income" style="color:var(--income)">৳0</div></div>
       <div class="prog-bar-wrap"><div class="prog-bar" id="pb-income" style="width:0%;background:var(--income)"></div></div>
-      <div class="prog-note" id="pn-income">মোট ০টি লেনদেন</div>
+      <div class="prog-note" id="pn-income">মোট 0টি লেনদেন</div>
     </div>
     <div class="prog-card">
       <div class="prog-card-header"><div class="prog-card-title"><svg class="icon icon-sm" style="color:var(--expense)"><use href="#i-trending-down"/></svg> ব্যয়</div><div class="prog-card-amount" id="pp-expense" style="color:var(--expense)">৳0</div></div>
       <div class="prog-bar-wrap"><div class="prog-bar" id="pb-expense" style="width:0%;background:var(--expense)"></div></div>
-      <div class="prog-note" id="pn-expense">মোট ০টি লেনদেন</div>
+      <div class="prog-note" id="pn-expense">মোট 0টি লেনদেন</div>
     </div>
     <div class="prog-card">
       <div class="prog-card-header"><div class="prog-card-title"><svg class="icon icon-sm" style="color:var(--debt)"><use href="#i-handshake"/></svg> নগদ বিক্রি</div><div class="prog-card-amount" id="pp-debt" style="color:var(--debt)">৳0</div></div>
       <div class="prog-bar-wrap"><div class="prog-bar" id="pb-debt" style="width:0%;background:var(--debt)"></div></div>
-      <div class="prog-note" id="pn-debt">মোট ০জন</div>
+      <div class="prog-note" id="pn-debt">মোট 0জন</div>
     </div>
     <div class="prog-card">
       <div class="prog-card-header"><div class="prog-card-title"><svg class="icon icon-sm" style="color:var(--due)"><use href="#i-wallet"/></svg> বাকি বিক্রি</div><div class="prog-card-amount" id="pp-due" style="color:var(--due)">৳0</div></div>
       <div class="prog-bar-wrap"><div class="prog-bar" id="pb-due" style="width:0%;background:var(--due)"></div></div>
-      <div class="prog-note" id="pn-due">মোট ০জন</div>
+      <div class="prog-note" id="pn-due">মোট 0জন</div>
     </div>
   </div>
 </div>
@@ -1048,7 +1058,7 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
       </div>
       <div class="form-group" style="flex:1">
         <label class="form-label">ক্যাটাগরি</label>
-        <select class="form-select" id="f-category"></select>
+        <select class="form-select" id="f-category" onchange="onCatSelect('f-category',state.currentType)"></select>
       </div>
     </div>
     <div class="form-row">
@@ -1145,7 +1155,7 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
       </div>
       <div class="form-group" style="flex:1">
         <label class="form-label">ক্যাটাগরি</label>
-        <select class="form-select" id="ef-category"></select>
+        <select class="form-select" id="ef-category" onchange="onCatSelect('ef-category',(state.transactions[editingTxnIdx]&&state.transactions[editingTxnIdx].type)||state.currentType)"></select>
       </div>
     </div>
     <div class="form-row">
@@ -1725,7 +1735,7 @@ function openEditModal(idx){
 
   // Category select
   const sel=$('ef-category');
-  sel.innerHTML=state.categories[t.type].map(c=>`<option value="${esc(c)}" ${c===t.category?'selected':''}>${esc(c)}</option>`).join('');
+  sel.innerHTML=catOptionsHtml(t.type,t.category||'');
 
   // Show/hide debt/due specific fields
   const isDebtDue=t.type==='due';
@@ -1815,7 +1825,7 @@ function setType(type){
     if(b.dataset.type===type) b.classList.add('sel-'+type);
   });
   const sel=$('f-category');
-  sel.innerHTML=state.categories[type].map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  sel.innerHTML=catOptionsHtml(type,'');
   $('f-due-wrap').style.display=(type==='due')?'block':'none';
   $('f-paid-wrap').style.display=(type==='due')?'flex':'none';
 }
@@ -1895,6 +1905,26 @@ function hideNameSuggestions(){
 window.showNameSuggestions=showNameSuggestions; window.selectName=selectName; window.hideNameSuggestions=hideNameSuggestions;
 
 /* ---------- Categories ---------- */
+/* লেনদেন লেখার সময়েই নতুন ক্যাটাগরি লেখা যাবে */
+function catOptionsHtml(type,current){
+  const list=(state.categories[type]||[]).slice();
+  if(current&&!list.includes(current)) list.unshift(current);
+  return list.map(c=>`<option value="${esc(c)}" ${c===current?'selected':''}>${esc(c)}</option>`).join('')
+    + '<option value="__new__">+ নতুন ক্যাটাগরি লিখুন…</option>';
+}
+function onCatSelect(id,type){
+  const sel=$(id);
+  if(sel.value!=='__new__') return;
+  const name=prompt('নতুন ক্যাটাগরির নাম:');
+  const n=(name||'').trim();
+  if(!n){ sel.selectedIndex=0; return; }
+  if(!state.categories[type]) state.categories[type]=[];
+  if(!state.categories[type].includes(n)){ state.categories[type].push(n); persistCats(); renderCategories(); }
+  sel.innerHTML=catOptionsHtml(type,n);
+  showToast('ক্যাটাগরি যোগ হয়েছে ✓');
+}
+window.catOptionsHtml=catOptionsHtml; window.onCatSelect=onCatSelect;
+
 function renderCategories(){
   const colors={income:'var(--income)',expense:'var(--expense)',debt:'var(--debt)',due:'var(--due)'};
   const counts={income:{},expense:{},debt:{},due:{}};
@@ -2096,6 +2126,7 @@ function renderCustomers(searchQ=''){
           <div class="cust-meta">${p.phone?'at '+esc(p.phone):''}${p.phone&&p.address?' · ':''} ${p.address?esc(p.address):''}</div>
         </div>
         <div class="cust-card-actions">
+          <button type="button" class="cust-edit-mini" title="সম্পাদনা" onclick="event.stopPropagation();openEditCustomerModal('${esc(p.id)}')"><svg class="icon icon-sm"><use href="#i-edit"/></svg></button>
           ${p.phone?`<a href="tel:${esc(p.phone)}" class="cust-call-mini" onclick="event.stopPropagation()"><svg class="icon icon-sm"><use href="#i-phone"/></svg></a>`:''}
           <div style="text-align:right">
             <div style="font-size:13px;font-weight:700;color:${balColor}">${balance>=0?'+':''}${fmt(balance)}</div>
@@ -2131,8 +2162,9 @@ function closeAddCustomerModal(){
   document.body.style.overflow='';
   state.editingPersonId=null;
 }
-function openEditCustomerModal(){
-  const p=state.persons.find(x=>x.id===state.viewingPersonId);
+function openEditCustomerModal(pid){
+  const targetId=pid||state.viewingPersonId;
+  const p=state.persons.find(x=>x.id===targetId);
   if(!p) return;
   state.editingPersonId=p.id;
   $('cust-modal-title').innerHTML=`<svg class="icon icon-sm" style="color:var(--income)"><use href="#i-edit"/></svg> কাস্টমার সম্পাদনা`;
@@ -2651,12 +2683,12 @@ function bnTime(t){
 const REPORT_CSS=`
 @page{size:A4;margin:10mm}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;background:#eceff3;color:#1f2733;font-size:12px;padding:14px}
+body{font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;background:#eceff3;color:#1f2733;font-size:15px;padding:14px}
 .sheet{max-width:196mm;margin:0 auto;background:#fff;border-radius:14px;padding:20px 22px 16px}
 .tiles{display:grid;grid-template-columns:1fr 1fr 1.05fr;grid-template-rows:auto auto;gap:12px}
 .tile{border-radius:12px;padding:12px 14px;position:relative;min-height:74px}
-.tile .lbl{font-size:14px;font-weight:600;color:#20303f;padding-right:34px}
-.tile .val{font-size:16px;font-weight:700;margin-top:6px;color:#1b2733;padding-right:30px}
+.tile .lbl{font-size:16.5px;font-weight:600;color:#20303f;padding-right:34px}
+.tile .val{font-size:20px;font-weight:700;margin-top:6px;color:#1b2733;padding-right:30px}
 .tile .ic{position:absolute;right:12px;top:10px;line-height:0}
 .tile .ic svg{width:26px;height:26px}
 .tile .ic2{position:absolute;right:14px;bottom:10px;line-height:0}
@@ -2668,14 +2700,14 @@ body{font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;background:#ecef
 .t-bal{background:#d7f2ec;grid-row:span 2;display:flex;flex-direction:column;justify-content:flex-end}
 .t-bal .big-ic{line-height:0;margin-bottom:10px}
 .t-bal .big-ic svg{width:44px;height:34px}
-.t-bal .status{margin-top:8px;font-size:11px;color:#3d5a55}
-.chip{display:inline-block;border-radius:6px;padding:1px 7px;font-size:10px;font-weight:600;color:#fff}
+.t-bal .status{margin-top:8px;font-size:13px;color:#3d5a55}
+.chip{display:inline-block;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;color:#fff}
 .chip-baki{background:#e0313f}
 .chip-porishodh{background:#7c5cf0}
-h3.sec{font-size:16px;font-weight:600;margin:20px 0 8px;color:#1f2733}
+h3.sec{font-size:19px;font-weight:600;margin:20px 0 8px;color:#1f2733}
 table{width:100%;border-collapse:collapse}
-thead th{font-size:11px;font-weight:600;color:#5a6675;text-align:left;border-bottom:1px solid #e2e6ec;padding:7px 6px}
-tbody td{font-size:11.5px;padding:7px 6px;border-bottom:1px solid #f0f2f5;vertical-align:middle}
+thead th{font-size:13.5px;font-weight:600;color:#5a6675;text-align:left;border-bottom:1px solid #e2e6ec;padding:7px 6px}
+tbody td{font-size:14px;padding:7px 6px;border-bottom:1px solid #f0f2f5;vertical-align:middle}
 td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .ty-income{color:#0aa06e;font-weight:600}
 .ty-expense{color:#e0313f;font-weight:600}
@@ -2688,26 +2720,26 @@ td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-n
 .monthly{display:grid;grid-template-columns:1.45fr 1fr;gap:14px;background:#f5f7f9;border-radius:12px;padding:14px}
 .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .bar-row:last-child{margin-bottom:0}
-.bar-lbl{width:46px;font-size:12px;font-weight:600}
+.bar-lbl{width:52px;font-size:14px;font-weight:600}
 .bar-track{flex:1;height:9px;border-radius:6px;background:#e3e7ec;overflow:hidden}
 .bar-fill{height:100%;border-radius:6px}
-.bar-val{width:78px;text-align:right;font-size:11px;background:#fff;border-radius:6px;padding:2px 6px}
+.bar-val{width:88px;text-align:right;font-size:13px;background:#fff;border-radius:6px;padding:2px 6px}
 .legend{display:flex;flex-direction:column;justify-content:center;gap:9px}
-.lg-row{display:flex;align-items:center;gap:8px;font-size:12px}
+.lg-row{display:flex;align-items:center;gap:8px;font-size:14px}
 .lg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .lg-name{width:54px}
 .lg-val{margin-left:auto;white-space:nowrap;font-variant-numeric:tabular-nums}
 .foot{display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:6px}
 .foot-left{display:flex;align-items:center;gap:12px}
 .clock{width:52px;height:52px}
-.foot-time{font-size:18px;font-weight:600;line-height:1.2}
-.foot-range{font-size:11px;color:#5a6675}
+.foot-time{font-size:21px;font-weight:600;line-height:1.2}
+.foot-range{font-size:13px;color:#5a6675}
 .sign-name{font-size:30px;font-weight:700;color:#3f4a58;letter-spacing:-.5px}
 .page-break{page-break-before:always}
 .pmeta{display:flex;align-items:center;gap:12px;background:#f5f7f9;border:1px solid #e2e6ec;border-radius:12px;padding:10px 14px;margin-bottom:14px}
 .pm-photo{width:52px;height:52px;border-radius:50%;object-fit:cover}
-.pm-name{font-size:16px;font-weight:700;color:#1f2733}
-.pm-line{font-size:11.5px;color:#4a5563;margin-top:3px}
+.pm-name{font-size:19px;font-weight:700;color:#1f2733}
+.pm-line{font-size:14px;color:#4a5563;margin-top:3px}
 .pm-item{white-space:nowrap}
 @media print{body{background:#fff;padding:0}.sheet{border-radius:0;padding:0}.noprint{display:none}}
 .sharebar{position:sticky;top:0;left:0;right:0;display:flex;gap:8px;justify-content:center;background:#0aa06e;padding:8px;z-index:9}
@@ -3909,128 +3941,178 @@ document.addEventListener('DOMContentLoaded',boot);
 </script>
 
 
-  <button id="installBtn" class="install-btn">
-  <svg class="install-icon" viewBox="0 0 24 24" width="20" height="20">
-    <path fill="currentColor" d="M12 16l-6-6h4V3h4v7h4l-6 6zm-7 3h14v2H5v-2z"/>
-  </svg>
-  <span>হিসাব'নিকাশ অ্যাপ install করুন</span>
+<!-- ===== ইনস্টল পপআপ (অ্যাপের কালার অনুযায়ী) ===== -->
+<div id="installPop" class="ipop" role="dialog" aria-modal="true" aria-labelledby="ipop-title">
+  <div class="ipop-card">
+    <button class="ipop-x" type="button" id="ipopClose" aria-label="বন্ধ">✕</button>
+    <div class="ipop-icon"><img src="/icon/icon-192.png" alt="হিসাবনিকাশ" width="64" height="64"></div>
+    <div class="ipop-title" id="ipop-title">হিসাব'নিকাশ অ্যাপ ইনস্টল করুন</div>
+    <div class="ipop-sub">ফোনের হোম স্ক্রিনে যোগ হবে — ইন্টারনেট ছাড়াই (অফলাইনে) পুরো হিসাব চলবে।</div>
+    <ul class="ipop-list">
+      <li>অফলাইনে কাজ করে</li>
+      <li>দ্রুত চালু হয়, ফুল স্ক্রিন</li>
+      <li>ডেটা আপনার ফোনেই থাকে</li>
+    </ul>
+    <div class="ipop-hint" id="ipopHint"></div>
+    <div class="ipop-btns">
+      <button class="ipop-btn ghost" type="button" id="ipopLater">পরে</button>
+      <button class="ipop-btn go" type="button" id="ipopInstall">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 16l-6-6h4V3h4v7h4l-6 6zm-7 3h14v2H5v-2z"/></svg>
+        এখনই ইনস্টল
+      </button>
+    </div>
+  </div>
+</div>
+
+<button id="installBtn" class="install-fab" type="button" aria-label="অ্যাপ ইনস্টল করুন">
+  <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 16l-6-6h4V3h4v7h4l-6 6zm-7 3h14v2H5v-2z"/></svg>
+  <span>অ্যাপ ইনস্টল</span>
 </button>
 
 <style>
-.install-btn {
-  display: none;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 22px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #0d9488, #059669);
-  color: #fff;
-  font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  animation: popIn 0.4s ease;
+.install-fab{
+  display:none; align-items:center; gap:7px;
+  position:fixed; left:50%; transform:translateX(-50%);
+  bottom:calc(84px + env(safe-area-inset-bottom)); z-index:9998;
+  padding:10px 18px; border:1px solid rgba(0,229,160,.35); border-radius:999px;
+  background:linear-gradient(135deg,#00e5a0,#00b98a);
+  color:#04231a; font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;
+  font-size:14px; font-weight:700; cursor:pointer;
+  box-shadow:0 10px 26px rgba(0,229,160,.28);
+  animation:ipopIn .35s ease;
 }
-.install-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.45);
-}
-.install-btn:active {
-  transform: translateY(0) scale(0.97);
-}
-.install-icon {
-  animation: bounce 1.6s ease-in-out infinite;
-}
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(3px); }
-}
-@keyframes popIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-.install-btn{
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: calc(84px + env(safe-area-inset-bottom));
-  z-index: 9999;
-}
-.install-btn:hover{ transform: translateX(-50%) translateY(-2px); }
-.install-btn:active{ transform: translateX(-50%) scale(0.97); }
-.install-hint{
-  position: fixed; left: 50%; transform: translateX(-50%);
-  bottom: calc(140px + env(safe-area-inset-bottom));
-  z-index: 9999; max-width: 320px; display: none;
-  background: #1a1d27; color: #e8eaf0; border: 1px solid #2e3350;
-  border-radius: 12px; padding: 12px 14px; font-size: 14px; line-height: 1.6;
-  box-shadow: 0 10px 30px rgba(0,0,0,.45);
-}
-</style>
+.install-fab:active{ transform:translateX(-50%) scale(.97); }
 
-<div id="installHint" class="install-hint"></div>
+.ipop{
+  position:fixed; inset:0; z-index:10000; display:none;
+  align-items:flex-end; justify-content:center;
+  background:rgba(8,10,16,.72); backdrop-filter:blur(4px);
+  padding:16px;
+}
+.ipop.open{ display:flex; }
+.ipop-card{
+  position:relative; width:100%; max-width:400px;
+  background:linear-gradient(180deg,#1a1d27,#151824);
+  border:1px solid #2e3350; border-radius:20px;
+  padding:22px 20px 18px; text-align:center;
+  color:#e8eaf0; font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;
+  box-shadow:0 24px 60px rgba(0,0,0,.6);
+  animation:ipopUp .28s cubic-bezier(.2,.9,.3,1);
+  margin-bottom:calc(8px + env(safe-area-inset-bottom));
+}
+.ipop-x{
+  position:absolute; top:10px; right:10px; width:32px; height:32px;
+  border:0; border-radius:50%; background:#22263a; color:#8b90a8;
+  font-size:14px; cursor:pointer;
+}
+.ipop-icon img{ border-radius:16px; box-shadow:0 8px 22px rgba(0,229,160,.22); }
+.ipop-title{ margin-top:12px; font-size:18px; font-weight:700; color:#e8eaf0; }
+.ipop-sub{ margin-top:6px; font-size:13.5px; line-height:1.65; color:#8b90a8; }
+.ipop-list{
+  list-style:none; margin:14px 0 0; padding:0;
+  display:flex; flex-direction:column; gap:7px; text-align:left;
+}
+.ipop-list li{
+  position:relative; padding-left:22px; font-size:13.5px; color:#c7cbdb;
+}
+.ipop-list li::before{
+  content:'✓'; position:absolute; left:0; top:-1px;
+  color:#00e5a0; font-weight:700;
+}
+.ipop-hint{
+  display:none; margin-top:12px; padding:10px 12px; text-align:left;
+  background:#22263a; border:1px solid #2e3350; border-radius:12px;
+  font-size:13px; line-height:1.65; color:#e8eaf0;
+}
+.ipop-btns{ display:flex; gap:10px; margin-top:16px; }
+.ipop-btn{
+  flex:1; display:inline-flex; align-items:center; justify-content:center; gap:7px;
+  padding:12px 14px; border-radius:13px; border:0; cursor:pointer;
+  font-family:inherit; font-size:14.5px; font-weight:700;
+}
+.ipop-btn.ghost{ background:#22263a; color:#8b90a8; border:1px solid #2e3350; }
+.ipop-btn.go{ background:linear-gradient(135deg,#00e5a0,#00b98a); color:#04231a; box-shadow:0 8px 20px rgba(0,229,160,.28); }
+.ipop-btn.go:active{ transform:scale(.98); }
+@keyframes ipopUp{ from{opacity:0; transform:translateY(24px)} to{opacity:1; transform:translateY(0)} }
+@keyframes ipopIn{ from{opacity:0; transform:translateX(-50%) scale(.92)} to{opacity:1; transform:translateX(-50%) scale(1)} }
+@media(min-width:640px){ .ipop{ align-items:center; } }
+</style>
 
 <script>
 (function () {
   let deferredPrompt = null;
-  const installBtn = document.getElementById('installBtn');
-  const hint = document.getElementById('installHint');
+  const pop = document.getElementById('installPop');
+  const fab = document.getElementById('installBtn');
+  const hint = document.getElementById('ipopHint');
+  const KEY = 'hn_install_dismissed';
 
   const isStandalone = () =>
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
-
-  const showHint = (html) => {
-    hint.innerHTML = html;
-    hint.style.display = 'block';
-    setTimeout(() => { hint.style.display = 'none'; }, 8000);
-  };
-
   const isIOS = () =>
     /iPad|iPhone|iPod/.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const dismissed = () => { try{ return localStorage.getItem(KEY)==='1'; }catch(e){ return false; } };
 
-  const show = () => { if (!isStandalone()) installBtn.style.display = 'flex'; };
-  const hide = () => { installBtn.style.display = 'none'; };
+  function showFab(){ if(!isStandalone()) fab.style.display='flex'; }
+  function hideFab(){ fab.style.display='none'; }
+  function openPop(){
+    if(isStandalone()) return;
+    hint.style.display='none';
+    pop.classList.add('open');
+  }
+  function closePop(later){
+    pop.classList.remove('open');
+    if(later){ try{ localStorage.setItem(KEY,'1'); }catch(e){} }
+    if(!isStandalone()) showFab();
+  }
 
-  // ইনস্টল প্রম্পট পাওয়া গেলে তবেই বাটন দেখানো হবে → ক্লিকে সরাসরি ইনস্টল শুরু
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    show();
-  });
+  document.getElementById('ipopClose').addEventListener('click', ()=>closePop(true));
+  document.getElementById('ipopLater').addEventListener('click', ()=>closePop(true));
+  pop.addEventListener('click',(e)=>{ if(e.target===pop) closePop(true); });
+  fab.addEventListener('click', openPop);
 
-  installBtn.addEventListener('click', async () => {
+  document.getElementById('ipopInstall').addEventListener('click', async () => {
     if (deferredPrompt) {
       const p = deferredPrompt;
       deferredPrompt = null;
       p.prompt();
       const res = await p.userChoice.catch(() => null);
-      if (res && res.outcome === 'accepted') hide();
-      else deferredPrompt = p;
+      if (res && res.outcome === 'accepted') { pop.classList.remove('open'); hideFab(); }
+      else { deferredPrompt = p; pop.classList.remove('open'); showFab(); }
       return;
     }
-    // শুধুমাত্র iOS Safari-তে (যেখানে অটো-ইনস্টল সাপোর্ট নেই) নির্দেশনা
     if (isIOS()) {
-      showHint('iPhone/iPad-এ ইনস্টল করতে: Safari-তে নিচের <b>Share</b> বাটনে চাপুন → <b>Add to Home Screen</b> নির্বাচন করুন।');
+      hint.innerHTML = 'iPhone/iPad-এ: Safari-র নিচের <b>Share</b> (⤴) বাটনে চাপুন → <b>Add to Home Screen</b> বেছে নিন।';
     } else {
-      hide();
+      hint.innerHTML = 'ব্রাউজারের মেনু (⋮) খুলুন → <b>Install app</b> / <b>Add to Home screen</b> চাপুন।';
     }
+    hint.style.display = 'block';
   });
 
-  window.addEventListener('appinstalled', () => { deferredPrompt = null; hide(); });
+  // ইনস্টল প্রম্পট পাওয়া গেলে সরাসরি পপআপ দেখানো হবে
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (dismissed()) showFab(); else setTimeout(openPop, 1200);
+  });
 
-  // iOS-এ beforeinstallprompt নেই — সেখানে বাটন দেখানো হবে
+  window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    pop.classList.remove('open');
+    hideFab();
+    try{ localStorage.setItem(KEY,'1'); }catch(e){}
+  });
+
+  // iOS-এ beforeinstallprompt নেই — সেখানে বাটন/পপআপ নিজে থেকেই দেখানো হবে
   window.addEventListener('load', () => {
-    setTimeout(() => { if (isIOS()) show(); }, 2500);
+    setTimeout(() => {
+      if (isStandalone() || !isIOS()) return;
+      if (dismissed()) showFab(); else openPop();
+    }, 2500);
   });
 })();
 </script>
 
-
-  
 </body>
 </html>
