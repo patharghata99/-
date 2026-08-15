@@ -367,7 +367,7 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
   /* Calc */
-  .calc-fab{position:fixed;bottom:180px;right:max(16px,calc(50% - 240px + 16px));width:52px;height:52px;touch-action:none;user-select:none;background:var(--surface);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:85;box-shadow:0 2px 12px rgba(0,0,0,.3);color:var(--text)}
+  .calc-fab{position:fixed;bottom:140px;right:max(16px,calc(50% - 240px + 16px));width:52px;height:52px;touch-action:none;user-select:none;background:var(--surface);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:85;box-shadow:0 2px 12px rgba(0,0,0,.3);color:var(--text)}
   .calc-fab:active{transform:scale(.92)}
   .calc-fab.dragging{opacity:.85}
   .calc-fab svg{width:24px;height:24px}
@@ -384,7 +384,7 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
   .calc-btn.clr{color:var(--expense)}
 
   /* Toast */
-  .toast{position:fixed;bottom:150px;left:50%;transform:translateX(-50%);background:var(--income);color:#000;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;box-shadow:0 6px 24px rgba(0,0,0,.4);max-width:90vw;display:flex;align-items:center;gap:6px}
+  .toast{position:fixed;bottom:210px;left:50%;transform:translateX(-50%);background:var(--income);color:#000;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;box-shadow:0 6px 24px rgba(0,0,0,.4);max-width:90vw;display:flex;align-items:center;gap:6px}
   .toast.show{opacity:1}
   .toast.err{background:var(--expense);color:#fff}
 
@@ -401,7 +401,7 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
 
 
   /* ===== ঝটপট হিসাব ===== */
-  .quick-fab{position:fixed;bottom:150px;right:max(14px,calc(50% - 240px + 14px));z-index:88;
+  .quick-fab{position:fixed;bottom:206px;right:max(14px,calc(50% - 240px + 14px));z-index:88;
     display:flex;align-items:center;gap:7px;padding:11px 16px;border:none;border-radius:30px;
     background:linear-gradient(135deg,var(--income),#00b98a);color:#04231a;font-family:inherit;
     font-size:13.5px;font-weight:700;cursor:pointer;box-shadow:0 8px 22px rgba(0,229,160,.35);transition:transform .15s}
@@ -991,13 +991,9 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
         <label class="form-label">কাস্টমারের নাম </label>
         <input class="form-input" type="text" id="qk-customer" placeholder="কাস্টমারের নাম" autocomplete="off">
       </div>
-      <div class="form-group" style="margin-bottom:10px">
-        <label class="form-label">নোট (ঐচ্ছিক)</label>
-        <input class="form-input" type="text" id="qk-note" placeholder="নোট" autocomplete="off">
-      </div>
       <label class="form-label">পণ্য যোগ করুন</label>
       <div class="qk-row">
-        <input class="form-input" type="text" id="qk-entry" placeholder="পণ্যের নাম  পরিমাণ  দাম" autocomplete="off"
+        <input class="form-input" type="text" id="qk-entry" placeholder="এখানে পণ্য নাম দাম  লিখুন...." autocomplete="off"
                onkeydown="if(event.key==='Enter'){event.preventDefault();quickAddFromInput()}">
         <button class="qk-btn qk-btn-mic" id="qk-mic" onclick="quickToggleVoice()" title="ভয়েসে বলুন" aria-label="ভয়েস">
           <svg class="icon"><use href="#i-mic"/></svg>
@@ -1006,7 +1002,7 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
           <svg class="icon icon-sm"><use href="#i-plus"/></svg> যোগ
         </button>
       </div>
-      <div class="qk-hint">  <b></b></div>
+      <div class="qk-hint"></div>
     </div>
 
     <div id="qk-list"></div>
@@ -1072,6 +1068,14 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
     <div class="form-group">
       <label class="form-label">নোট</label>
       <input class="form-input" type="text" id="f-note" placeholder="ঐচ্ছিক">
+    </div>
+    <div class="photo-row">
+      <div class="photo-prev" id="f-photo-prev"><svg class="icon icon-lg"><use href="#i-person"/></svg></div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="photo-btn" type="button" onclick="pickFormPhoto()"> ছবি যোগ করুন</button>
+        <button class="photo-btn" type="button" onclick="clearFormPhoto()">✕ ছবি মুছুন</button>
+      </div>
+      <input type="file" id="f-photo-input" accept="image/*" style="display:none" onchange="onFormPhotoPick(this)">
     </div>
     <div class="toggle-row" id="f-paid-wrap" style="display:none">
       <div class="toggle-label">পরিশোধ হয়েছে</div>
@@ -1532,7 +1536,7 @@ function selRerender(){
 }
 function selBarHtml(){
   if(!selMode) return '';
-  const bn=String(selSet.size).replace(/[0-9]/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+  const bn=String(selSet.size);
   return `<div class="sel-bar">
     <span class="sel-count">${bn} টি নির্বাচিত</span>
     <button class="sel-danger" onclick="deleteSelected()">🗑 ডিলেট</button>
@@ -1648,7 +1652,7 @@ function renderTransactions(list){
         </div>
         <div class="trans-info">
           <div class="trans-name">${esc(g.name)}</div>
-          <div class="trans-desc">${String(g.items.length).replace(/[0-9]/g,d=>'০১২৩৪৫৬৭৮৯'[d])} টি লেনদেন</div>
+          <div class="trans-desc">${g.items.length} টি লেনদেন</div>
         </div>
         <div class="trans-right">
           <div class="trans-amount ${net>=0?'plus':'minus'}">${net>=0?'+':'-'}${fmt(Math.abs(net))}</div>
@@ -1656,9 +1660,6 @@ function renderTransactions(list){
         </div>
       </div>
       ${summaryHtml}
-      <div class="grp-photo-line" onclick="event.stopPropagation()">
-        <button class="ta-btn" onclick="addPhotoForName('${nm}')"> ছবি যোগ করুন </button>
-      </div>
       <div class="grp-body">${g.items.map(rowHtml).join('')}</div>
       <div class="trans-acts" onclick="event.stopPropagation()">
         <button class="ta-btn ta-add" onclick="quickAddForName('${nm}','${last.type}')">+ আবার হিসাব</button>
@@ -1818,7 +1819,24 @@ function setType(type){
   $('f-due-wrap').style.display=(type==='due')?'block':'none';
   $('f-paid-wrap').style.display=(type==='due')?'flex':'none';
 }
+let pendingFormPhoto=null;
+function pickFormPhoto(){ document.getElementById('f-photo-input').click(); }
+async function onFormPhotoPick(input){
+  const f=input.files&&input.files[0]; input.value='';
+  if(!f) return;
+  try{
+    pendingFormPhoto=await readImageCompressed(f);
+    $('f-photo-prev').innerHTML=`<img src="${pendingFormPhoto}" alt="">`;
+  }catch(e){ showToast('ছবি সংরক্ষণ হয়নি',true); }
+}
+function clearFormPhoto(){
+  pendingFormPhoto=null;
+  $('f-photo-prev').innerHTML=`<svg class="icon icon-lg"><use href="#i-person"/></svg>`;
+}
+window.pickFormPhoto=pickFormPhoto; window.onFormPhotoPick=onFormPhotoPick; window.clearFormPhoto=clearFormPhoto;
+
 function resetForm(){
+  clearFormPhoto();
   $('f-amount').value=''; $('f-name').value=''; $('f-note').value='';
   $('f-due-date').value=''; $('f-paid').checked=false;
   $('f-date').value=new Date().toISOString().split('T')[0];
@@ -1831,6 +1849,10 @@ function addTransaction(){
   // একই ব্যক্তির সাথে যতবার খুশি লেনদেন করা যাবে —
   // নাম আগে থাকলে সেই ব্যক্তির সাথেই নতুন লেনদেন যুক্ত হবে, না থাকলে নতুন ব্যক্তি তৈরি হবে।
   const personId=ensurePerson(name);
+  if(personId&&pendingFormPhoto){
+    const pi=state.persons.findIndex(x=>x.id===personId);
+    if(pi>=0){ state.persons[pi]={...state.persons[pi],photo:pendingFormPhoto}; persistPersons(); }
+  }
   const t={
     id:'t_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),
     type:state.currentType, amount, name,
@@ -2866,7 +2888,7 @@ function reportSheetAOA(txns,signName){
   rows.push(['মোট',(+tt.debt||0)+(+tt.due||0),'','সঞ্চয়',tt.saving,'']);
   const blockEnd=rows.length-1;
   rows.push(['','','','','','']);
-  rows.push([`তৈরি হয়েছে: ${new Date().toLocaleString('bn-BD')}`,'','','','',signName||BRAND]);
+  rows.push([`তৈরি হয়েছে: ${new Date().toLocaleString('en-GB')}`,'','','','',signName||BRAND]);
   rows.push([`হিসাবকাল: ${period}`,'','','','','']);
   rows.push([`অ্যাপ্লিকেশন: ${BRAND}`,'','','','','']);
 
@@ -3344,7 +3366,7 @@ let quickRec=null, quickRecOn=false;
 
 const QK_BN_MAP={'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
 const toEnDigits=t=>String(t||'').replace(/[০-৯]/g,d=>QK_BN_MAP[d]);
-const toBnDigits=t=>String(t==null?'':t).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[+d]);
+const toBnDigits=t=>String(t==null?'':t);
 const qkMoney=n=>'৳'+toBnDigits(Math.round((Number(n)||0)*100)/100);
 const qkMoneyEn=n=>'৳'+(Math.round((Number(n)||0)*100)/100).toLocaleString('en-US');
 const qkNum=n=>String(n==null?'':n);
@@ -3355,24 +3377,42 @@ function getUserName(){
   return 'দোকান মালিক';
 }
 
+/* একক (ইউনিট) — এগুলোর যেকোনোটি লেখা থাকলে তা পরিমাণের একক হিসেবে ধরা হবে */
+const QK_UNITS=new Set(['কেজি','গ্রাম','লিটার','মিলি','মিলিলিটার','পিস','পিছ','টা','টি','ডজন','হালি','বস্তা','প্যাকেট','বোতল','আঁটি','মুঠি','সের','গজ','মিটার','ফুট','ইঞ্চি']);
+const QK_SKIP=new Set(['টাকা','টাকার','দাম','x','X','×','*']);
+
+/* বাংলা স্ক্রিপ্টে \b (word-boundary) নির্ভরযোগ্য নয়, তাই টোকেন ভেঙে ভেঙে পার্স করা হচ্ছে */
 function quickParse(text){
   const raw=toEnDigits(String(text||'').replace(/[,।]/g,' ').trim());
   if(!raw) return null;
-  const nums=(raw.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
-  const name=raw.replace(/\d+(?:\.\d+)?/g,' ')
-    .replace(/\b(টাকা|টাকার|দাম|পিস|কেজি|টা|টি|x|X|×|\*)\b/g,' ')
-    .replace(/\s+/g,' ').trim();
+  const tokens=raw.split(/\s+/).filter(Boolean);
+  const nums=[]; let unit=''; const nameParts=[];
+  tokens.forEach(tok=>{
+    if(/^\d+(?:\.\d+)?$/.test(tok)){ nums.push(Number(tok)); return; }
+    if(QK_UNITS.has(tok)){ if(!unit) unit=tok; return; }
+    if(QK_SKIP.has(tok)) return;
+    nameParts.push(tok);
+  });
+  const name=nameParts.join(' ').trim();
   if(!name) return null;
   let qty=1, price=0;
-  if(nums.length>=2){ qty=nums[0]||1; price=nums[1]||0; }
-  else if(nums.length===1){ price=nums[0]||0; }
-  return {id:Date.now()+Math.random(), name, qty:Math.max(1,qty), price:Math.max(0,price)};
+  if(nums.length>=2){
+    /* প্রথম সংখ্যা = পরিমাণ, দ্বিতীয় সংখ্যা = মোট দাম -> একক দাম = মোট দাম / পরিমাণ */
+    qty=nums[0]||1;
+    const total=nums[1]||0;
+    price=qty>0?total/qty:total;
+  } else if(nums.length===1){
+    /* একটাই সংখ্যা থাকলে সেটাকে মোট/একক দাম ধরা হবে, পরিমাণ ১ */
+    price=nums[0]||0;
+  }
+  price=Math.round((price+Number.EPSILON)*100)/100;
+  return {id:Date.now()+Math.random(), name, unit, qty:Math.max(1,qty), price:Math.max(0,price)};
 }
 
 function quickAdd(text){
   const it=quickParse(text);
   if(!it){ showToast('পণ্যের নাম ও দাম লিখুন',true); return false; }
-  const same=quickItems.find(x=>x.name===it.name&&x.price===it.price);
+  const same=quickItems.find(x=>x.name===it.name&&x.price===it.price&&x.unit===it.unit);
   if(same) same.qty+=it.qty; else quickItems.push(it);
   renderQuick();
   return true;
@@ -3403,7 +3443,7 @@ function renderQuick(){
         <div class="qk-item">
           <div class="qk-item-main">
             <div class="qk-item-name">${esc(i.name)}</div>
-            <div class="qk-item-sub">দাম ${qkMoneyEn(i.price)} × ${qkNum(i.qty)}</div>
+            <div class="qk-item-sub">${i.unit?esc(i.unit)+' ':'প্রতি '}${qkMoneyEn(i.price)}${i.unit?'':' × '+qkNum(i.qty)}</div>
           </div>
           <div class="qk-qty">
             <button onclick="quickQty('${i.id}',-1)" aria-label="কমান">−</button>
@@ -3424,11 +3464,13 @@ function quickDelete(id){ quickItems=quickItems.filter(i=>String(i.id)!==String(
 function quickEdit(id){
   const i=quickFind(id); if(!i) return;
   const name=prompt('পণ্যের নাম',i.name); if(name===null) return;
-  const price=prompt('একক দাম (৳)',i.price); if(price===null) return;
   const qty=prompt('পরিমাণ',i.qty); if(qty===null) return;
+  const unit=prompt('একক (যেমনঃ কেজি, পিস, লিটার) — না থাকলে খালি রাখুন',i.unit||''); if(unit===null) return;
+  const price=prompt('একক দাম (৳)',i.price); if(price===null) return;
   i.name=String(name).trim()||i.name;
-  i.price=Math.max(0,Number(toEnDigits(price))||0);
   i.qty=Math.max(1,Number(toEnDigits(qty))||1);
+  i.unit=String(unit).trim();
+  i.price=Math.max(0,Number(toEnDigits(price))||0);
   renderQuick();
 }
 function quickClear(){
@@ -3473,14 +3515,14 @@ function quickSave(){
   quickBills.unshift({
     id:'qb'+Date.now(),
     customer:($('qk-customer').value||'').trim()||'সাধারণ কাস্টমার',
-    note:($('qk-note').value||'').trim(),
-    items:quickItems.map(i=>({name:i.name,qty:i.qty,price:i.price})),
+    note:'',
+    items:quickItems.map(i=>({name:i.name,qty:i.qty,unit:i.unit||'',price:i.price})),
     total:quickTotal(),
     date:d.toISOString().split('T')[0],
     time:d.toTimeString().slice(0,5)
   });
   saveQuickBills();
-  quickItems=[]; $('qk-customer').value=''; $('qk-note').value=''; renderQuick();
+  quickItems=[]; $('qk-customer').value=''; renderQuick();
   showToast('হিসাব সংরক্ষিত হয়েছে ✓');
 }
 function renderQuickBills(){
@@ -3498,7 +3540,7 @@ function renderQuickBills(){
         </div>
         <div class="qk-bill-amt">${qkMoneyEn(b.total)}</div>
       </div>
-      <div class="qk-bill-items">${b.items.map(i=>`${esc(i.name)} ×${i.qty} — ${qkMoneyEn(i.qty*i.price)}`).join('<br>')}</div>
+      <div class="qk-bill-items">${b.items.map(i=>`${esc(i.name)} ${i.qty}${i.unit?esc(i.unit):''} — ${qkMoneyEn(i.qty*i.price)}`).join('<br>')}</div>
       <div class="qk-bill-acts">
         <button class="pdf" onclick="quickBillPDF('${b.id}')"><svg class="icon icon-sm"><use href="#i-download"/></svg> PDF ডাউনলোড</button>
         <button onclick="quickReload('${b.id}')">আবার সম্পাদনা</button>
@@ -3512,9 +3554,8 @@ function quickBillDelete(id){
 }
 function quickReload(id){
   const b=quickBills.find(x=>x.id===id); if(!b) return;
-  quickItems=b.items.map(i=>({id:Date.now()+Math.random(),name:i.name,qty:i.qty,price:i.price}));
+  quickItems=b.items.map(i=>({id:Date.now()+Math.random(),name:i.name,qty:i.qty,unit:i.unit||'',price:i.price}));
   $('qk-customer').value=b.customer==='সাধারণ কাস্টমার'?'':b.customer;
-  $('qk-note').value=b.note||'';
   renderQuick();
   $('quick-modal').querySelector('.fm-body').scrollTop=0;
 }
@@ -3524,11 +3565,11 @@ function quickReceiptHtml(bill){
   const rows=bill.items.map((i,n)=>`<tr>
     <td class="num">${toBnDigits(n+1)}</td>
     <td class="nm">${esc(i.name)}</td>
-    <td class="num">${toBnDigits(i.qty)}</td>
-    <td class="num">${qkMoney(i.price)}</td>
+    <td class="num">${toBnDigits(i.qty)}${i.unit?' '+esc(i.unit):''}</td>
+    <td class="num">${qkMoney(i.price)}${i.unit?'/'+esc(i.unit):''}</td>
     <td class="num strong">${qkMoney(i.qty*i.price)}</td>
     <td class="num">-</td></tr>`).join('');
-  const count=bill.items.reduce((s,i)=>s+i.qty,0);
+  const count=bill.items.length;
   const shop=esc(getUserName());
   const bno=toBnDigits((bill.date||'').replace(/-/g,''))+'-'+toBnDigits(String((bill.items.length||0)+100).slice(-3));
   return `<div class="sheet">
@@ -3539,8 +3580,9 @@ function quickReceiptHtml(bill){
     </div>
     <div class="infocard">
       <div class="info-left">
-        <div class="shop-name">${shop}</div>
-        <div class="shop-sub">কাস্টমার: <b>${esc(bill.customer)}</b></div>
+        <div class="shop-sub" style="margin-top:0">কাস্টমার</div>
+        <div class="shop-name">${esc(bill.customer)}</div>
+        <div class="shop-sub">মোট পণ্য নিয়েছেনঃ <b>${toBnDigits(count)} টি</b></div>
         ${bill.note?`<div class="shop-sub">নোট: ${esc(bill.note)}</div>`:''}
       </div>
       <div class="info-right">
@@ -3559,39 +3601,33 @@ function quickReceiptHtml(bill){
       <div class="g-box"><div class="g-val">${qkMoney(bill.total)}</div></div>
     </div>
     <div class="thanks">ধন্যবাদ, আবার আসবেন!</div>
-    <div class="feats">
-      <div class="feat"><b>দ্রুত</b><span>হিসাব করুন</span></div>
-      <div class="feat"><b>নির্ভরযোগ্য</b><span>হিসাব ব্যবস্থা</span></div>
-      <div class="feat"><b>সহজ ব্যবহার</b><span>সবার জন্য</span></div>
-      <div class="feat"><b>আপনার আস্থা</b><span>আমাদের অনুপ্রেরণা</span></div>
-    </div>
     <div class="rfoot">
-      <div class="foot-left"><b>${shop}</b><span>ছোট দোকান, বড় স্বপ্ন</span></div>
-      <div class="sign">${shop}<i>ধন্যবাদ</i></div>
+      <div class="foot-left"><b>মোট পণ্যঃ ${toBnDigits(count)} টি</b><span>ছোট দোকান, বড় স্বপ্ন</span></div>
+      <div class="sign">&nbsp;<i>কর্তৃপক্ষের স্বাক্ষর</i></div>
     </div>
-    <div class="strip">${shop} &nbsp;|&nbsp; আপনার দোকানের স্মার্ট হিসাব সঙ্গী</div>
+    <div class="strip">আপনার দোকানের স্মার্ট হিসাব সঙ্গী</div>
   </div>`;
 }
 const QUICK_CSS=`
 @page{size:A4;margin:0}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;background:#fff;color:#16233d;font-size:13px}
+body{font-family:'Hind Siliguri','Noto Sans Bengali',sans-serif;background:#fff;color:#16233d;font-size:15px}
 .sheet{width:794px;margin:0 auto;background:#f7f9fc;padding:0 0 0}
 .brand{position:relative;background:#12224a;color:#fff;padding:26px 28px 30px;border-radius:0 0 40% 40%/0 0 26px 26px}
 .brand-name{font-size:38px;font-weight:800;text-align:center;letter-spacing:-.5px;line-height:1.15}
-.brand-sub{text-align:center;font-size:12.5px;color:#c8d4ef;margin-top:4px}
-.brand-tag{position:absolute;right:26px;top:26px;font-size:11.5px;line-height:1.5;color:#7ee2a8;text-align:right;font-weight:600}
+.brand-sub{text-align:center;font-size:15.5px;color:#c8d4ef;margin-top:4px}
+.brand-tag{position:absolute;right:26px;top:26px;font-size:14.5px;line-height:1.5;color:#7ee2a8;text-align:right;font-weight:600}
 .infocard{display:flex;gap:18px;justify-content:space-between;background:#eef2f9;border:1px solid #dde5f2;border-radius:14px;margin:18px 24px 0;padding:16px 20px}
 .shop-name{font-size:21px;font-weight:800;color:#12224a}
-.shop-sub{font-size:12.5px;color:#4a5872;margin-top:3px}
-.info-right{font-size:12.5px;color:#12224a;line-height:1.9;border-left:1px solid #cfd9ea;padding-left:18px;min-width:230px}
-.info-right span{display:inline-block;width:74px;color:#4a5872}
+.shop-sub{font-size:15.5px;color:#4a5872;margin-top:3px}
+.info-right{font-size:16px;color:#12224a;line-height:1.9;border-left:1px solid #cfd9ea;padding-left:18px;min-width:230px}
+.info-right span{display:inline-block;width:82px;color:#4a5872}
 .info-right i{font-style:normal;color:#4a5872;margin-right:8px}
 .titlerow{text-align:center;margin:20px 0 6px}
 .pill{display:inline-block;background:#12224a;color:#fff;font-size:20px;font-weight:700;padding:9px 34px;border-radius:26px}
 table{width:calc(100% - 48px);margin:14px 24px 0;border-collapse:collapse;background:#fff;border:1px solid #dde5f2;border-radius:12px;overflow:hidden}
-thead th{font-size:12px;font-weight:700;color:#fff;background:#12224a;padding:11px 8px;text-align:left}
-tbody td{font-size:12.5px;padding:11px 8px;border-bottom:1px solid #eef1f6;color:#22314f}
+thead th{font-size:15px;font-weight:700;color:#fff;background:#12224a;padding:11px 8px;text-align:left}
+tbody td{font-size:15.5px;padding:11px 8px;border-bottom:1px solid #eef1f6;color:#22314f}
 tbody tr:nth-child(even) td{background:#f7f9fc}
 td.nm{font-weight:600}
 td.strong{font-weight:700}
@@ -3600,17 +3636,17 @@ td.num,th.num{text-align:center;white-space:nowrap}
 .g-lbl{flex:1;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#12224a;padding:14px 18px}
 .g-box{background:#12224a;padding:14px 34px;display:flex;align-items:center;border-left:6px solid #7ee2a8}
 .g-val{font-size:30px;font-weight:800;color:#8ff0ae;letter-spacing:-.5px}
-.thanks{text-align:right;margin:8px 26px 0;font-size:13px;color:#3d7a5a;font-weight:600}
+.thanks{text-align:right;margin:8px 26px 0;font-size:16px;color:#3d7a5a;font-weight:600}
 .feats{display:flex;gap:10px;margin:16px 24px 0}
 .feat{flex:1;background:#eef2f9;border:1px solid #dde5f2;border-radius:12px;padding:12px 6px;text-align:center}
 .feat b{display:block;font-size:13px;color:#12224a}
 .feat span{display:block;font-size:11.5px;color:#5a6a86;margin-top:2px}
 .rfoot{display:flex;justify-content:space-between;align-items:flex-end;margin:20px 24px 0;padding-top:14px;border-top:1px solid #dde5f2}
 .foot-left b{display:block;font-size:14px;color:#12224a}
-.foot-left span{font-size:12px;color:#5a6a86}
+.foot-left span{font-size:14.5px;color:#5a6a86}
 .sign{font-size:22px;font-weight:700;color:#12224a;text-align:center;border-bottom:2px solid #7ee2a8;padding:0 18px 4px;min-width:180px}
-.sign i{display:block;font-style:normal;font-size:11.5px;font-weight:500;color:#5a6a86;margin-top:4px}
-.strip{margin-top:20px;background:#12224a;color:#fff;text-align:center;font-size:12px;padding:11px}
+.sign i{display:block;font-style:normal;font-size:14.5px;font-weight:500;color:#5a6a86;margin-top:4px}
+.strip{margin-top:20px;background:#12224a;color:#fff;text-align:center;font-size:15px;padding:11px}
 `;
 
 /* ================================================================
@@ -3717,7 +3753,7 @@ function ensureUserName(){
   if(state.user&&(state.user.displayName||state.user.email)) return true;
   let n=null; try{ n=localStorage.getItem('hisabnikash_user_name'); }catch(e){}
   if(n) return true;
-  const v=prompt('আপনার নাম / দোকানের নাম (রসিদে দেখা যাবে)','');
+  const v= ('নিজের অথবা দোকানের নাম লিখুন','');
   if(v&&v.trim()){ try{ localStorage.setItem('hisabnikash_user_name',v.trim()); }catch(e){} }
   return true;
 }
@@ -3727,7 +3763,7 @@ function quickPDF(){
   const d=new Date();
   quickOpenSheet('বিক্রয় হিসাব', quickReceiptHtml({
     customer:($('qk-customer').value||'').trim()||'সাধারণ কাস্টমার',
-    note:($('qk-note').value||'').trim(),
+    note:'',
     items:quickItems, total:quickTotal(),
     date:d.toISOString().split('T')[0], time:d.toTimeString().slice(0,5)
   }));
@@ -3774,7 +3810,7 @@ window.initDraggableCalc=initDraggableCalc;
 /* ---------- ঝটপট ফ্লোটিং আইকন — যেকোনো জায়গায় সরানো যাবে ---------- */
 function initDraggableFab(){
   const fab=$('quick-fab'); if(!fab) return;
-  const KEY='hisabnikash_fab_pos';
+  const KEY='hisabnikash_fab_pos_v2';
   const place=(x,y)=>{
     const w=fab.offsetWidth||120, h=fab.offsetHeight||44;
     x=Math.min(Math.max(x,6),window.innerWidth-w-6);
