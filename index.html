@@ -12,11 +12,6 @@
 <link rel="apple-touch-icon" href="/icon/apple-touch-icon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
 
-<meta property="og:title" content="হিসাব'নিকাশ">
-<meta property="og:description" content="হিসাবনিকাশ — আয়, ব্যয়, নগদ বিক্রি ও বাকি বিক্রির সহজ হিসাব">
-<meta property="og:image" content="https://hisabnikash.vercel.app/icon/preview.png">
-
-
 
 <meta property="og:title" content="হিসাব'নিকাশ">
 <meta property="og:description" content="হিসাবনিকাশ — আয়, ব্যয়, নগদ বিক্রি ও বাকি বিক্রির সহজ হিসাব">
@@ -1058,7 +1053,8 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
       </div>
       <div class="form-group" style="flex:1">
         <label class="form-label">ক্যাটাগরি</label>
-        <select class="form-select" id="f-category" onchange="onCatSelect('f-category',state.currentType)"></select>
+        <input class="form-input" type="text" id="f-category" placeholder="ক্যাটাগরি লিখুন" list="f-category-list" autocomplete="off">
+        <datalist id="f-category-list"></datalist>
       </div>
     </div>
     <div class="form-row">
@@ -1155,7 +1151,8 @@ setTimeout(function(){ var s=document.getElementById('splash'); if(s){ s.classLi
       </div>
       <div class="form-group" style="flex:1">
         <label class="form-label">ক্যাটাগরি</label>
-        <select class="form-select" id="ef-category" onchange="onCatSelect('ef-category',(state.transactions[editingTxnIdx]&&state.transactions[editingTxnIdx].type)||state.currentType)"></select>
+        <input class="form-input" type="text" id="ef-category" placeholder="ক্যাটাগরি লিখুন" list="ef-category-list" autocomplete="off">
+        <datalist id="ef-category-list"></datalist>
       </div>
     </div>
     <div class="form-row">
@@ -1733,9 +1730,9 @@ function openEditModal(idx){
   $('ef-due-date').value=t.dueDate||'';
   $('ef-paid').checked=!!(t.paid||t.status==='paid');
 
-  // Category select
-  const sel=$('ef-category');
-  sel.innerHTML=catOptionsHtml(t.type,t.category||'');
+  // Category
+  $('ef-category-list').innerHTML=catDatalistHtml(t.type);
+  $('ef-category').value=t.category||'';
 
   // Show/hide debt/due specific fields
   const isDebtDue=t.type==='due';
@@ -1766,7 +1763,7 @@ function saveEditTransaction(){
 
   t.amount=amount;
   t.name=name;
-  t.category=$('ef-category').value;
+  t.category=ensureCategory(t.type,$('ef-category').value);
   t.date=$('ef-date').value||t.date;
   t.time=$('ef-time').value||t.time;
   t.note=$('ef-note').value.trim();
@@ -1824,8 +1821,8 @@ function setType(type){
     b.className='type-btn';
     if(b.dataset.type===type) b.classList.add('sel-'+type);
   });
-  const sel=$('f-category');
-  sel.innerHTML=catOptionsHtml(type,'');
+  $('f-category-list').innerHTML=catDatalistHtml(type);
+  $('f-category').value='';
   $('f-due-wrap').style.display=(type==='due')?'block':'none';
   $('f-paid-wrap').style.display=(type==='due')?'flex':'none';
 }
@@ -1867,7 +1864,7 @@ function addTransaction(){
     id:'t_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),
     type:state.currentType, amount, name,
     personId: personId||'',
-    category:$('f-category').value,
+    category:ensureCategory(state.currentType,$('f-category').value),
     date:$('f-date').value||new Date().toISOString().split('T')[0],
     time:$('f-time').value||nowTime(),
     note:$('f-note').value.trim(),
@@ -1924,6 +1921,20 @@ function onCatSelect(id,type){
   showToast('ক্যাটাগরি যোগ হয়েছে ✓');
 }
 window.catOptionsHtml=catOptionsHtml; window.onCatSelect=onCatSelect;
+
+function catDatalistHtml(type){
+  return (state.categories[type]||[]).map(c=>`<option value="${esc(c)}"></option>`).join('');
+}
+function ensureCategory(type,name){
+  const n=(name||'').trim();
+  if(!n) return '';
+  if(!state.categories[type]) state.categories[type]=[];
+  if(!state.categories[type].includes(n)){
+    state.categories[type].push(n); persistCats(); renderCategories();
+  }
+  return n;
+}
+window.catDatalistHtml=catDatalistHtml; window.ensureCategory=ensureCategory;
 
 function renderCategories(){
   const colors={income:'var(--income)',expense:'var(--expense)',debt:'var(--debt)',due:'var(--due)'};
