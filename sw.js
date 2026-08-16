@@ -1,12 +1,11 @@
 /* হিসাবনিকাশ — অফলাইন সার্ভিস ওয়ার্কার */
-const VERSION = 'hn-v5';
+const VERSION = 'hn-v6';
 const CORE = [
   '/',
   '/manifest.webmanifest',
   '/favicon.png',
-  '/icon/icon-192.png',
-  '/icon/icon-512.png',
-  '/icon/apple-touch-icon.png',
+  '/icon/icon-500.png',
+  '/icon/icon-1254.png',
 ];
 const RUNTIME = VERSION + '-runtime';
 
