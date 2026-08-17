@@ -2160,7 +2160,7 @@ function renderCustomers(searchQ=''){
       <div class="cust-summary">
         <div class="cust-stat"><div class="cust-stat-val" style="color:var(--debt)">${fmt(stats.totalGiven)}</div><div class="cust-stat-lbl">নগদ বিক্রি</div></div>
         <div class="cust-stat"><div class="cust-stat-val" style="color:var(--income)">${fmt(stats.totalPaid)}</div><div class="cust-stat-lbl">পরিশোধ</div></div>
-        <div class="cust-stat"><div class="cust-stat-val" style="color:var(--expense)">${fmt(stats.totalPending)}</div><div class="cust-stat-lbl">বাকি</div></div>
+        <div class="cust-stat"><div class="cust-stat-val" style="color:var(--expense)">${fmt(stats.totalPending)}</div><div class="cust-stat-lbl">ব্যয়</div></div>
         <div class="cust-stat"><div class="cust-stat-val" style="color:var(--due)">${fmt(stats.totalReceived)}</div><div class="cust-stat-lbl">বাকি বিক্রি</div></div>
       </div>
     </div>`;
@@ -2416,7 +2416,7 @@ function renderCustomerDetail(){
           const isPlus=t.type==='income'||t.type==='due';
           const statusLabel=t.type==='due'
             ? `<span style="font-size:10px;color:${t.paid||t.status==='paid'?'var(--income)':'var(--debt)'}">
-                ${t.paid||t.status==='paid'?'✓ পরিশোধ':'⏳ বাকি'}
+                ${t.paid||t.status==='paid'?'✓ পরিশোধ':' বাকি'}
                </span>` : '';
           const _k=keyOf(t); const _on=selSet.has(_k);
           return `<div class="cd-txn-item ${_on?'sel-on':''}" data-selkey="${esc(_k)}" onclick="openEditModal(${tidx})">
@@ -3659,15 +3659,10 @@ function quickReceiptHtml(bill){
     </table>
     <div class="grand">
       <div class="g-lbl">সর্বমোট (${toBnDigits(count)} পণ্য)</div>
-      <div class="g-box"><div class="g-val">${qkMoney(bill.total)}</div></div>
+      <div class="g-box"><div class="g-val">${qkMoney(bill.total)}</div>
     </div>
-    <div class="thanks">ধন্যবাদ, আবার আসবেন!</div>
-    <div class="rfoot">
-      <div class="foot-left"><b>মোট পণ্যঃ ${toBnDigits(count)} টি</b><span>ছোট দোকান, বড় স্বপ্ন</span></div>
-      <div class="sign">&nbsp;<i>কর্তৃপক্ষের স্বাক্ষর</i></div>
     </div>
-    <div class="strip">আপনার দোকানের স্মার্ট হিসাব সঙ্গী</div>
-  </div>`;
+    </div>`;
 }
 const QUICK_CSS=`
 @page{size:A4;margin:0}
@@ -4142,6 +4137,47 @@ document.addEventListener('DOMContentLoaded',boot);
   });
 })();
 </script>
+
+
+
+<script>
+(function(){
+  const MODAL_IDS=['modal','edit-modal','add-cust-modal','cust-detail-modal','type-detail-modal','auth-modal','quick-modal','calc-modal'];
+
+  function closeAnyOpenModal(){
+    let closedAny=false;
+    MODAL_IDS.forEach(id=>{
+      const el=document.getElementById(id);
+      if(el && el.classList.contains('open')){
+        el.classList.remove('open');
+        closedAny=true;
+      }
+    });
+    document.body.style.overflow='';
+    return closedAny;
+  }
+
+  // পেজ লোড হলে একটা history entry পুশ করি
+  history.pushState({buffer:true}, '', location.href);
+
+  window.addEventListener('popstate', function(){
+    const isOnHome = document.getElementById('page-home').classList.contains('active');
+    const hadOpenModal = closeAnyOpenModal();
+
+    if(hadOpenModal || !isOnHome){
+      // মডাল খোলা ছিল অথবা হোম পেজে ছিলাম না — হোমে ফিরিয়ে নিয়ে যাও
+      const homeBtn = document.querySelector('.nav-item[data-page="home"]');
+      if(homeBtn) switchPage('home', homeBtn);
+      history.pushState({buffer:true}, '', location.href); // আবার বাফার করি, অ্যাপ যেন বন্ধ না হয়
+    } else {
+      // আগে থেকেই হোমে, কোনো মডাল খোলা নেই — এখন এক্সিট পারমিশন চাও
+      showToast('বের হতে ডবল ক্লিক করুন');
+      // এখানে ইচ্ছাকৃতভাবে buffer পুশ করছি না — তাই পরের ব্যাকে সত্যিকার এক্সিট হবে
+    }
+  });
+})();
+</script>
+
 
 </body>
 </html>
